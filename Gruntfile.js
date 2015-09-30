@@ -1,6 +1,5 @@
 'use strict';
 
-var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
 
@@ -16,7 +15,7 @@ module.exports = function (grunt) {
 
     // tasks
     grunt.registerTask('default', 'dev');
-    grunt.registerTask('dev', ['copy','strip_code']);
+    grunt.registerTask('dev', ['copy:build','strip_code']);
     grunt.registerTask('build', ['strip_code:prod']);
     
     grunt.initConfig(config);
