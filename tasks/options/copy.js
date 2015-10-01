@@ -4,22 +4,29 @@ module.exports = {
 		files: [
 			{
 			  	cwd: 'src/',
-				src: '**/*', 
+				src: '**', 
 				dest: 'build/',
 				expand: true,
 				filter: 'isFile'
 			}
-		]
+		],
+		options: {
+			punctuation: ''
+		}
 	},
 	prod: {
 		files: [
 			{
 			  	cwd: 'src/',
-				src: '**/*', 
+				src: '**', 
 				dest: 'build/',
 				expand: true,
-				filter: 'isFile'
+				filter: 'isFile',
+				punctuation: ''
 			}
-		]
+		],
+		options: {
+			punctuation: ''
+		}
 	}
 };
