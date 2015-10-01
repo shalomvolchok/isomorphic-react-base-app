@@ -10,6 +10,7 @@ module.exports = {
 				filter: 'isFile'
 			}
 		],
+		// This seems to be needed so that copy will not add a "." to the end of every file
 		options: {
 			punctuation: ''
 		}
