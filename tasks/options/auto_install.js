@@ -1,25 +1,21 @@
 
 module.exports = {
 	dev: {
-
-		  options: {
-		    cwd: 'build',
-		    stdout: true,
-		    stderr: true,
-		    failOnError: true,
-		    npm: true
-		  }
-	
+		options: {
+			cwd: 'build',
+			stdout: true,
+			stderr: true,
+			failOnError: true,
+			npm: true
+		}
 	},
 	prod: {
-		subdir: {
-		  options: {
+		options: {
 			cwd: 'build',
 			stdout: true,
 			stderr: true,
 			failOnError: true,
 			npm: '--production'
-		  }
 		}
 	}
 };

@@ -28,7 +28,6 @@ var server = express();
 server.set('state namespace', 'App');
 
 /* __DEV__ */
-var path = require('path');
 var webpack = require('webpack');
 var config = require('./webpack/dev.config');
 var compiler = webpack(config);
