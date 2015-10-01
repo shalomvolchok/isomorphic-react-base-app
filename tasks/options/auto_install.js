@@ -15,7 +15,7 @@ module.exports = {
 			stdout: true,
 			stderr: true,
 			failOnError: true,
-			npm: '--production'
+			npm: true
 		}
 	}
 };
