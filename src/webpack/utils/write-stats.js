@@ -10,7 +10,7 @@
 import fs from "fs";
 import path from "path";
 
-const filepath = path.resolve(__dirname, "./webpack-stats.json");
+const filepath = path.resolve(__dirname, "../../webpack-stats.json");
 
 // Write only a relevant subset of the stats and attach the public path to it
 

@@ -14,7 +14,6 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				Hello World 1234
 				<h1>{this.props.homeMsg}</h1>
 				<h4>{this.props.exampleState}</h4>
 				<SaveState />

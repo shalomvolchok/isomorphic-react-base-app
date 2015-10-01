@@ -10,35 +10,24 @@ import webpack from "webpack";
 import writeStats from "./utils/write-stats";
 import notifyStats from "./utils/notify-stats";
 
-const assetsPath = path.resolve(__dirname, "../public/assets");
-
-const WEBPACK_HOST = "localhost";
-const WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;
-
 export default {
-  devtool: "cheap-module-eval-source-map",
-  entry: {
-    "main": [
-      `webpack-dev-server/client?http://${WEBPACK_HOST}:${WEBPACK_PORT}`,
-      "webpack/hot/only-dev-server",
+  devtool: "eval",
+  entry: [
+      "webpack-hot-middleware/client",
       "./client.js"
-    ]
-  },
+  ],
   output: {
-    path: assetsPath,
-    filename: "[name]-[hash].js",
-    chunkFilename: "[name]-[hash].js",
-    publicPath: `http://${WEBPACK_HOST}:${WEBPACK_PORT}/assets/`
+    path: path.join(__dirname, 'dist'),
+    filename: "[name].js",
+    publicPath: '/public/js/'
   },
   module: {
     loaders: [
       { test: /\.(jpe?g|png|gif|svg)$/, loader: "file" },
-      { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel?cacheDirectory"] },
-     // { test: /\.scss$/, loader: "style!css!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap=true&sourceMapContents=true" },
+      { test: /\.js$/, exclude: /node_modules/, loaders: ["react-hot", "babel?cacheDirectory"] }, // I don't know why having "react-hot" here makes it work, it shouldn't be needed.
       { test: /\.less$/, loader: "style!css!autoprefixer?browsers=last 2 version!less" }, // use instead postcss([autoprefixer]).process()
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.scss$/, loader: 'style!sass' },
-      //{ test: /\.css$/, loader: "css-loader" },
       { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&minetype=application/font-woff" },
       { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&minetype=application/font-woff" },
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,    loader: "url?limit=10000&minetype=application/octet-stream" },

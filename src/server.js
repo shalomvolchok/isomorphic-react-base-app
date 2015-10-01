@@ -15,7 +15,7 @@ var Router = require('react-router');
 var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
 
 // Allows hashed names for .js and .css files
-var webpackStats = require("./webpack/utils/webpack-stats.json");
+var webpackStats = require("./webpack-stats.json");
 
 // Needed to parse posts
 var bodyParser = require('body-parser');

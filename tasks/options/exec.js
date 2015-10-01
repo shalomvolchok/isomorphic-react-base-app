@@ -4,6 +4,6 @@ module.exports = {
 		cmd: 'cd build/; NODE_ENV=development node server.js'
 	},
 	prod: {
-		cmd: 'cd build/; npm run build; npm prune --production'
+		cmd: 'cd build/; npm run build; npm prune --production; rm -r webpack; rm -r package.json;'
 	}
 };
