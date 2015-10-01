@@ -27,16 +27,12 @@ server.set('state namespace', 'App');
 
 server.use(favicon(__dirname + '/favicon.ico'));
 
-// On production, use the public directory for static files
-// This directory is created by webpack on build time.
-if (server.get("env") === "production") {
-  server.use('/public', express.static(__dirname + '/public'));
-}
+/* __PROD__ */
+server.use('/public', express.static(__dirname + '/public'));
+/* __END_PROD__ */
 
 // On development, serve the static files from the webpack dev server.
-if (server.get("env") === "development") {
-	require("./webpack/hotServer");
-}
+require("./webpack/hotServer");
 
 server.use(cookieParser());
 server.use(bodyParser.json());
@@ -46,18 +42,13 @@ var fetchrPlugin = app.getPlugin('FetchrPlugin');
 fetchrPlugin.registerService(require('./app/services/exampleService'));
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
-var webpackStats;
+var require("./webpack/utils/webpack-stats.json");
 
-if (process.env.NODE_ENV === "production") {
-  webpackStats = require("./webpack/utils/webpack-stats.json");
-}
+/* __DEV__ */
+delete require.cache[require.resolve("./webpack/utils/webpack-stats.json")];
+/* __END_DEV__ */
 
 server.use(function (req, res, next) {
-
-	if (process.env.NODE_ENV === "development") {
-		webpackStats = require("./webpack/utils/webpack-stats.json");
-		delete require.cache[require.resolve("./webpack/utils/webpack-stats.json")];
-	}
 
     var context = app.createContext({
         req: req,
