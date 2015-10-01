@@ -1,7 +1,7 @@
 
 module.exports = {
 	dev: {
-		cmd: 'NODE_ENV=development node build/server.js'
+		cmd: 'cd build/; NODE_ENV=development node server.js'
 	},
 	prod: {
 		
