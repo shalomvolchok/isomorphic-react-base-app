@@ -16,7 +16,7 @@ module.exports = function (grunt) {
     // tasks
     grunt.registerTask('default', 'dev');
     grunt.registerTask('dev', ['copy:dev','strip_code:dev','auto_install:dev','watch:dev']);
-    grunt.registerTask('prod', ['copy:prod','strip_code:prod','auto_install:prod','watch:prod']);
+    grunt.registerTask('prod', ['copy:prod','strip_code:prod','auto_install:prod','exec:prod']);
     
     grunt.initConfig(config);
 };
