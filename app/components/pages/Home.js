@@ -12,8 +12,11 @@ import ReactSelectExample from '../elements/ReactSelectExample';
 class Home extends React.Component {
 
 	render() {
+
 		return (
+
 			<div className="container">
+
 				<h1>{this.props.homeMsg}</h1>
 				<h4>{this.props.exampleState}</h4>
 				<SaveState />
@@ -34,7 +37,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
- homeMsg: React.PropTypes.string,
+	homeMsg: React.PropTypes.string,
 };
 
 Home.defaultProps = {

@@ -15,6 +15,15 @@ var HtmlComponent = React.createFactory(require('./Html.js'));
 var Router = require('react-router');
 var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
 
+// for hot reloading
+var path = require('path');
+var webpack = require('webpack');
+var config = require('./webpack/dev.config');
+var compiler = webpack(config);
+
+
+
+
 // Needed to parse posts
 var bodyParser = require('body-parser');
 
@@ -25,18 +34,23 @@ var csrf = require('csurf');
 var server = express();
 server.set('state namespace', 'App');
 
+
+// HOT RELOADING
+server.use(require('webpack-dev-middleware')(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}));
+server.use(require('webpack-hot-middleware')(compiler));
+
+
+
 server.use(favicon(__dirname + '/favicon.ico'));
 
 // On production, use the public directory for static files
 // This directory is created by webpack on build time.
-if (server.get("env") === "production") {
-  server.use('/public', express.static(__dirname + '/public'));
-}
-
-// On development, serve the static files from the webpack dev server.
-if (server.get("env") === "development") {
-	require("./webpack/hotServer");
-}
+//if (server.get("env") === "production") {
+server.use('/public', express.static(__dirname + '/public'));
+//}
 
 server.use(cookieParser());
 server.use(bodyParser.json());
@@ -46,18 +60,17 @@ var fetchrPlugin = app.getPlugin('FetchrPlugin');
 fetchrPlugin.registerService(require('./app/services/exampleService'));
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
-var webpackStats;
+//var webpackStats = {"script":["/public/js/main.js"],"css":[]};
 
-if (process.env.NODE_ENV === "production") {
-  webpackStats = require("./webpack/utils/webpack-stats.json");
-}
+//var webpackStats = require("./webpack/utils/webpack-stats.json");
+var webpackStats;
 
 server.use(function (req, res, next) {
 
-	if (process.env.NODE_ENV === "development") {
-		webpackStats = require("./webpack/utils/webpack-stats.json");
-		delete require.cache[require.resolve("./webpack/utils/webpack-stats.json")];
-	}
+
+	webpackStats = require("./webpack/utils/webpack-stats.json");
+	delete require.cache[require.resolve("./webpack/utils/webpack-stats.json")];
+
 
     var context = app.createContext({
         req: req,
@@ -91,6 +104,6 @@ server.use(function (req, res, next) {
     });
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3005;
 server.listen(port);
 console.log('Listening on port ' + port);

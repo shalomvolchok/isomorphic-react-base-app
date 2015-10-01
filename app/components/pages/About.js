@@ -9,6 +9,7 @@ class About extends React.Component {
 	render() {
 		return (
     		<div className="container">
+
 			  <h1>{this.props.aboutMsg}</h1>
 			</div>
 		);
